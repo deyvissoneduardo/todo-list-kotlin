@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">TodoList</string>
+    <string name="app_name">Todo List</string>
+    <string name="add_task">Adicionar tarefa</string>
+    <string name="salve">Salvar</string>
+    <string name="content_task">Digite uma tarefa</string>
+    <string name="new_task">Adicionar nova tarefa</string>
+    <string name="content_item">Ir ao mercado</string>
+    <string name="date">20/10/2022</string>
+    <string name="delete">excluir</string>
+    <string name="edit">editar</string>
 </resources>
