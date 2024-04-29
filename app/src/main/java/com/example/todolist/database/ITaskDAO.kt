@@ -6,5 +6,5 @@ interface ITaskDAO {
     fun save(task: TaskModel): Boolean
     fun update(task: TaskModel): Boolean
     fun delete(idTask: Int): Boolean
-//    fun getAll(): List<TaskModel>
+   fun getAll(): List<TaskModel>
 }

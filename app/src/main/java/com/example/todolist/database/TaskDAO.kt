@@ -36,7 +36,27 @@ class TaskDAO(context: Context): ITaskDAO {
         return false;
     }
 
-//    override fun getAll(): List<TaskModel> {
-//        return [];
-//    }
+    override fun getAll(): List<TaskModel> {
+        val listTask = mutableListOf<TaskModel>();
+        val sql = "SELECT ${DatabaseHelper.COLUMN_ID}, " +
+                "${DatabaseHelper.COLUMN_DESCRIPTION}, " +
+                "strftime('%d/%m/%Y %H:%M', ${DatabaseHelper.COLUMN_DATE}) ${DatabaseHelper.COLUMN_DATE} " +
+                "FROM ${DatabaseHelper.TABLE_NAME}"
+
+        val cursor = readDatabase.rawQuery(sql, null)
+
+        val index = cursor.getColumnIndex(DatabaseHelper.COLUMN_ID)
+        val description = cursor.getColumnIndex(DatabaseHelper.COLUMN_DESCRIPTION)
+        val date = cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE)
+
+        while (cursor.moveToNext()) {
+            val idTask = cursor.getInt(index)
+            val description = cursor.getString(description)
+            val date = cursor.getString(date)
+
+            listTask.add(TaskModel(idTask,description,date))
+        }
+
+        return  listTask;
+    }
 }
