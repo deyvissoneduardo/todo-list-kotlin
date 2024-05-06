@@ -33,7 +33,19 @@ class TaskDAO(context: Context): ITaskDAO {
     }
 
     override fun delete(idTask: Int) : Boolean{
-        return false;
+        try {
+            createDatabase.delete(
+                DatabaseHelper.TABLE_NAME,
+                "${DatabaseHelper.COLUMN_ID} = ?",
+                arrayOf(idTask.toString())
+            )
+            Log.i("Insert Table ${DatabaseHelper.TABLE_NAME}", "success delete task")
+        }catch (e: SQLException){
+            e.printStackTrace()
+            Log.e("error delete task", e.message.toString())
+            return false
+        }
+        return true
     }
 
     override fun getAll(): List<TaskModel> {
