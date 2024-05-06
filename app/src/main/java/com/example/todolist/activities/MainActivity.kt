@@ -30,10 +30,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         taskAdapter = TaskAdapter(
-            {id -> confirmDeleteTask(id)}
+            { id -> confirmDeleteTask(id) },
+            { taskModel ->  editTask(taskModel) }
         )
         binding.rvTarefas.adapter = taskAdapter
         binding.rvTarefas.layoutManager = LinearLayoutManager(this)
+    }
+
+
+
+    override fun onStart() {
+        super.onStart()
+        loadNewTask()
     }
 
     private fun confirmDeleteTask(id: Int) {
@@ -51,11 +59,11 @@ class MainActivity : AppCompatActivity() {
         alertBuilder.create().show()
     }
 
-    override fun onStart() {
-        super.onStart()
-        loadNewTask()
+    private fun editTask(taskModel: TaskModel) {
+        val intent = Intent(this, AddTask::class.java)
+        intent.putExtra("task", taskModel)
+        startActivity(intent)
     }
-
     private fun loadNewTask(){
         val taskDAO = TaskDAO(this)
         listTask = taskDAO.getAll()

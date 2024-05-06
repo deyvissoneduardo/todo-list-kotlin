@@ -29,7 +29,22 @@ class TaskDAO(context: Context): ITaskDAO {
     }
 
     override fun update(task: TaskModel) : Boolean{
-        return false;
+        val content = ContentValues()
+        content.put("${DatabaseHelper.COLUMN_DESCRIPTION}", task.description)
+        try {
+            createDatabase.update(
+                DatabaseHelper.TABLE_NAME,
+                content,
+                "${DatabaseHelper.COLUMN_ID} = ?",
+                arrayOf(task.idTask.toString())
+            )
+            Log.i("Update Table ${DatabaseHelper.TABLE_NAME}", "success autualizar task")
+        }catch (e: SQLException){
+            e.printStackTrace()
+            Log.e("falha atualizar task", e.message.toString())
+            return false
+        }
+        return true
     }
 
     override fun delete(idTask: Int) : Boolean{

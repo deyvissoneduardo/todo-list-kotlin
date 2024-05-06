@@ -8,6 +8,7 @@ import com.example.todolist.model.TaskModel
 
 class TaskAdapter(
     val onItemClickDelete: (Int) -> Unit,
+    val onItemClickEdit: (TaskModel) -> Unit
 ):  RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private var listTask: List<TaskModel> = emptyList()
@@ -25,7 +26,10 @@ class TaskAdapter(
             binding.textDescricao.text = taskmodel.description
             binding.textData.text = taskmodel.date
             binding.btnExcluir.setOnClickListener{
-                onItemClickDelete(taskmodel.isTask)
+                onItemClickDelete(taskmodel.idTask)
+            }
+            binding.btnEditar.setOnClickListener{
+                onItemClickEdit(taskmodel)
             }
         }
 
